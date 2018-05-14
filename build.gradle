@@ -86,34 +86,34 @@ compileJava.doFirst {
 configurations {
 	published
 }
-artifactory {
-	contextUrl = "${artifactory_contextUrl}"
-	publish {
-		repository {
-			if (version.matches(/[0-9\.]+$/)) {
-				repoKey = 'libs-release-local'
-			} else {
-				repoKey = 'libs-snapshot-local'
-			}
-			username = "${artifactory_user}" //The publisher user name
-			password = "${artifactory_password}" //The publisher password
-		}
-		defaults {
-			publishConfigs('archives', 'published')
-			//properties = ['build.status': "$it.project.status".toString()]
-			publishPom = true //Publish generated POM files to Artifactory (true by default)
-			publishIvy = false //Publish generated Ivy descriptor files to Artifactory (true by default)
-		}
-	}
-	resolve {
-		repository {
-			repoKey = 'libs-release' //The Artifactory (preferably virtual) repository key to resolve from
-			username = "${artifactory_user}" //Optional resolver user name (leave out to use anonymous resolution)
-			password = "${artifactory_password}" //The resolver password
-			maven = true
-		}
-	}
-}
+// artifactory {
+// 	contextUrl = "http://repo.myorg.com/artifactory"
+// 	publish {
+// 		repository {
+// 			if (version.matches(/[0-9\.]+$/)) {
+// 				repoKey = 'libs-release-local'
+// 			} else {
+// 				repoKey = 'libs-snapshot-local'
+// 			}
+// 			username = "${artifactory_user}" //The publisher user name
+// 			password = "${artifactory_password}" //The publisher password
+// 		}
+// 		defaults {
+// 			publishConfigs('archives', 'published')
+// 			//properties = ['build.status': "$it.project.status".toString()]
+// 			publishPom = true //Publish generated POM files to Artifactory (true by default)
+// 			publishIvy = false //Publish generated Ivy descriptor files to Artifactory (true by default)
+// 		}
+// 	}
+// 	resolve {
+// 		repository {
+// 			repoKey = 'libs-release' //The Artifactory (preferably virtual) repository key to resolve from
+// 			username = "${artifactory_user}" //Optional resolver user name (leave out to use anonymous resolution)
+// 			password = "${artifactory_password}" //The resolver password
+// 			maven = true
+// 		}
+// 	}
+// }
 task javadocJar(type: Jar, dependsOn: javadoc) {
 	classifier = 'javadoc'
 	from javadoc.destinationDir
